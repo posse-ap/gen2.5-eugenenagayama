@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizy</title>
+    <link rel="stylesheet" href="./normalize.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -20,33 +21,39 @@
                 1. この地名はなんて読む？
             </h2>
             <div class="quiz-image-container">
-                <img class="quiz-image" src="images/takanawa.png" alt="高輪">
+                <img class="quiz-image" src="images/1.png" alt="高輪">
             </div>
-            <ul>
-                <li>こうわ</li>
-                <li>たかわ</li>
-                <li>たかなわ</li>
+            <ul >
+                <li id ="text-button1" onclick="js_alert1()">こうわ</li>
+                <li id ="text-button2" onclick="js_alert2()">たかわ</li>
+                <li id ="text-button3" onclick="js_alert()">たかなわ</li>
             </ul>
+            <div class="quiz-result" style="display:block;">
+                <p id="true1" class="true-box1">正解！</p>
+                <p id="true2" class="true-box2">正解は「たかなわ」です！</p>
+                <div id="false1" class="false-box">不正解！</div>
+            </div>
         </section>
         <section class="quiz box-container">
             <h2>
                 2. この地名はなんて読む？
             </h2>
             <div class="quiz-image-container">
-                <img class="quiz-image" src="images/kameido.png" alt="亀戸">
+                <img class="quiz-image" src="images/2.png" alt="亀戸">
             </div>
             <ul>
                 <li>かめど</li>
                 <li>かめと</li>
                 <li>かめいど</li>
             </ul>
+            <div></div>
         </section>
         <section class="quiz box-container">
             <h2>
                 3. この地名はなんて読む？
             </h2>
             <div class="quiz-image-container">
-                <img class="quiz-image" src="images/koujimachi.png" alt="麹町">
+                <img class="quiz-image" src="images/3.png" alt="麹町">
             </div>
             <ul>
                 <li>かゆまち</li>
@@ -59,7 +66,7 @@
                 4. この地名はなんて読む？
             </h2>
             <div class="quiz-image-container">
-                <img class="quiz-image" src="images/onarimon.png" alt="御成門">
+                <img class="quiz-image" src="images/4.png" alt="御成門">
             </div>
             <ul>
                 <li>おかどもん</li>
@@ -68,7 +75,7 @@
             </ul>
         </section>
     </div>
-
+<script src="app.js"></script>
 </body>
 
 </html>
