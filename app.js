@@ -24,8 +24,10 @@ var title = '<p class="quiz_title">ガチで東京の人しか解けない！ #�
 
 const false1 = document.getElementById("false1");
 const true1  = document.getElementById("true1");
-const true2  = document.getElementById("true2");
-
+const trueBox = document.getElementById("correctBox");
+const answer = document.getElementById("answer1");
+const makeMistake = document.getElementById("false1");
+const falseMistake = document.getElementById("answer2");
 
 
 
@@ -38,7 +40,7 @@ const true2  = document.getElementById("true2");
 //   };
 
 
-// document.getElementById("text-button2").onclick = function() {
+// document.getElementById("text-button2") = function() {
 //     const kouwa =  document.getElementById("text-button2")
 
 //     false1.style.display="block";
@@ -55,11 +57,15 @@ const true2  = document.getElementById("true2");
 //     takanawa.style.background ="blue";
 //     takanawa.style.color = "white";
 //   };
+
+
+
 var button = document.getElementById("text-button3");
 
     function js_alert(){
     true1.style.display="block";
-    true2.style.display="inline-block";
+    trueBox.style.display="block";
+    answer.style.display="block";
     button.style.background ="blue";
     button.style.color = "white";
 }
@@ -70,14 +76,16 @@ var button2 = document.getElementById("text-button2");
 
     function js_alert1(){
     true1.style.display="block";
-    true2.style.display="inline-block";
+    makeMistake.style.display="block";
+    falseMistake.style.display="block";
     button1.style.background ="red";
     button1.style.color = "white";
 }
 
     function js_alert2(){
     true1.style.display="block";
-    true2.style.display="inline-block";
+    makeMistake.style.display="block";
+    falseMistake.style.display="block";
     button2.style.background ="red";
     button2.style.color = "white";
 }
