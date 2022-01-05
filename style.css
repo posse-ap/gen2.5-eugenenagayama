@@ -128,3 +128,7 @@ ul {
   background-color:#ff5128;
   content:'';
 }
+
+.notclick{
+  pointer-events: none;
+}

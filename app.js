@@ -18,6 +18,17 @@ const answerBox = [
     'たかなわ','かめいど','こうじまち','おなりもん','とどろき','しゃくじい','ぞうしき','おかちまち','ししぼね','こぐれ'
 ]
 
+//シャッフル関数
+function shuffle([...array]) {
+    for (let h = array.length - 1; h >= 0; h--) {
+      const j = Math.floor(Math.random() * (h + 1));
+      [array[h], array[j]] = [array[j], array[h]];
+    }
+    return array;
+}
+chooseBox.map(shuffle);
+
+// console.log(chooseBox[2])
 
 for (let i = 0; i < chooseBox.length; i++) {
 
@@ -31,7 +42,7 @@ for (let i = 0; i < chooseBox.length; i++) {
             +`<div class="quiz-image-container">
                 <img class="quiz-image" src=images1/${i+1}.png  alt="写真">
             </div>`
-            +'<ul>'
+            +'<ul id="selection${i+1}">'
                 +`<li id ="textButton1_${i+1}" >${chooseBox[i][1]}</li>`
                 +`<li id ="textButton2_${i+1}" >${chooseBox[i][2]}</li>`
                 +`<li id ="textButton3_${i+1}">${chooseBox[i][0]}</li>`
@@ -46,6 +57,7 @@ for (let i = 0; i < chooseBox.length; i++) {
     +'</div>';
 
 document.getElementById('quizContainer').insertAdjacentHTML('beforeend',main);
+
 
     let falseAnswer = document.getElementById(`textButton1_${i+1}`);
     let answerMistake = document.getElementById(`textButton2_${i+1}`);
@@ -65,6 +77,8 @@ document.getElementById('quizContainer').insertAdjacentHTML('beforeend',main);
         answerContainer.style.display="block";
         correctAnswer.style.background ="blue";
         correctAnswer.style.color = "white";
+        falseAnswer.classList.add('notclick');
+        answerMistake.classList.add('notclick');
     });
 
 
@@ -76,6 +90,8 @@ document.getElementById('quizContainer').insertAdjacentHTML('beforeend',main);
         falseMistake.style.display="block";
         falseAnswer.style.background ="red";
         falseAnswer.style.color = "white";
+        correctAnswer.classList.add('notclick');
+        answerMistake.classList.add('notclick');
     });
     
     answerMistake.addEventListener("click",() => { 
@@ -84,21 +100,7 @@ document.getElementById('quizContainer').insertAdjacentHTML('beforeend',main);
         falseMistake.style.display="block";
         answerMistake.style.background ="red";
         answerMistake.style.color = "white";
+        falseAnswer.classList.add('notclick');
+        correctAnswer.classList.add('notclick');
     });
-
-    // function shuffle(arr) {
-    //     for (let i = arr.length - 1; i > 0; i--) {
-    //       const j = Math.floor(Math.random() * (i + 1));
-    //       [arr[j], arr[i]] = [arr[i], arr[j]];
-    //     }
-    //     return arr;
-    //   }
-
-    // const shuffledChoices = shuffle(quizSet[currentNum].c);
-
-    //   shuffledChoices.forEach(choice => { // 新たに用意した shuffledChoices を使う
-    //     const li = document.createElement('li');
-    //     li.textContent = choice;
-    //     choices.appendChild(li);
-    //   });
 }
