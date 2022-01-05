@@ -55,6 +55,11 @@ html,body{
   margin:0 auto;
 }
 
+.quiz-image-container{
+  margin: 10px 0;
+  display: block;
+}
+
 .quiz .quiz-image {
   display: block;
   width: 100%;
@@ -105,15 +110,6 @@ ul {
   background-color:#287dff;
   content:'';
 }
-
-/* .true-box2{
-  display: none;
-  font-size: 1pc;
-  line-height: 20px;
-  font-weight: 600;
-  padding-bottom: 3px;
-  margin-bottom: 10px; */
-/* } */
 
 .false-box{
   display: none;

@@ -1,97 +1,27 @@
 var title = '<p class="quiz_title">ガチで東京の人しか解けない! #東京の難読地名クイズ</p>'
 
 
-
-// // document.getElementById("text-button1").onclick = function() {
-// //     const takawa =  document.getElementById("text-button1")
-
-// //     false1.style.display="block";
-// //     takawa.style.background ="red";
-// //     takawa.style.color = "white";
-// //   };
-
-
-// // document.getElementById("text-button2") = function() {
-// //     const kouwa =  document.getElementById("text-button2")
-
-// //     false1.style.display="block";
-// //     kouwa.style.background ="red";
-// //     kouwa.style.color = "white";
-// //   };
-
-
-// // document.getElementById("text-button3").onclick = function() {
-    
-// //     const takanawa =  document.getElementById("text-button3")
-// //     true1.style.display="block";
-// //     true2.style.display="inline-block";
-// //     takanawa.style.background ="blue";
-// //     takanawa.style.color = "white";
-// //   };
-
-
-// var button = document.getElementById("text-button3");
-
-// function js_alert(){
-//     true1.style.display="block";
-//     trueBox.style.display="block";
-//     answer.style.display="block";
-//     button.style.background ="blue";
-//     button.style.color = "white";
-// }
-
-
-// var button1 = document.getElementById("text-button1");
-// var button2 = document.getElementById("text-button2");
-
-// function js_alert1(){
-//     true1.style.display="block";
-//     makeMistake.style.display="block";
-//     falseMistake.style.display="block";
-//     button1.style.background ="red";
-//     button1.style.color = "white";
-// }
-
-// function js_alert2(){
-//     true1.style.display="block";
-//     makeMistake.style.display="block";
-//     falseMistake.style.display="block";
-//     button2.style.background ="red";
-//     button2.style.color = "white";
-// }
-
-
-
-
-
-const choosebox = [
+const chooseBox = [
     ['たかなわ','こうわ','たかわ'],
     ['かめいど','かめと','かめど'],
     ['こうじまち','おかとまち','かゆまち'],
     ['おなりもん','おかどまん','ごせいもん'],
+    ['とどろき','たたりき','たたら'],
+    ['しゃくじい','せきこうい','いじい'],
+    ['ぞうしき','ざっしき','ざっしょく'],
+    ['おかちまち','みとちょう','ごしろちょう'],
+    ['ししぼね','しこね','ろっこつ'],
+    ['こぐれ','こばく','こしゃく']
 ]
 
-const answerbox = [
-    ['たかなわ','かめいど','こうじまち','おなりもん']
+const answerBox = [
+    'たかなわ','かめいど','こうじまち','おなりもん','とどろき','しゃくじい','ぞうしき','おかちまち','ししぼね','こぐれ'
 ]
 
-var boxContainer = document.createElement("div");
-boxContainer.id='quizContainer';
-document.body.appendChild(boxContainer);
 
-let main = "";
+for (let i = 0; i < chooseBox.length; i++) {
 
-for (let i = 0; i < choosebox.length; i++) {
-
-    var button1 = document.getElementById(`text-button1_${i+1}`);
-    var button2 = document.getElementById(`text-button2_${i+1}`);
-    var button = document.getElementById(`text-button3_${i+1}`);
-
-    const false1 = document.getElementById(`false1_${i+1}`);
-    const true1  = document.getElementById(`true1_${i+1}`);
-    const trueBox = document.getElementById(`correctBox_${i+1}`);
-    const answer = document.getElementById(`answer1_${i+1}`);
-    const falseMistake = document.getElementById(`answer2_${i+1}`);
+    let main = "";
 
     main+= 
     '<div class="quiz box-container">'
@@ -99,47 +29,76 @@ for (let i = 0; i < choosebox.length; i++) {
 
 
             +`<div class="quiz-image-container">
-                <img class="quiz-image" src=images1/${i+1}.png  alt="高輪">
+                <img class="quiz-image" src=images1/${i+1}.png  alt="写真">
             </div>`
             +'<ul>'
-                +`<li id ="text-button1_${i+1}" >${choosebox[i][1]}</li>`
-                +`<li id ="text-button2_${i+1}" >${choosebox[i][2]}</li>`
-                +`<li id ="text-button3_${i+1}">${choosebox[i][0]}</li>`
+                +`<li id ="textButton1_${i+1}" >${chooseBox[i][1]}</li>`
+                +`<li id ="textButton2_${i+1}" >${chooseBox[i][2]}</li>`
+                +`<li id ="textButton3_${i+1}">${chooseBox[i][0]}</li>`
             +'</ul>'
 
             +`<div id="answer1_${i+1}" class="quiz-result">`
-                +`<p id="true1_${i+1}"><span id="correctBox_${i+1}" class="true-box1">正解!</span>正解は${answerbox[i]}です!</p>`
+                +`<p id="true1_${i+1}"><span id="correctBox_${i+1}" class="true-box1">正解!</span>正解は${answerBox[i]}です!</p>`
             +'</div>'
             +`<div id="answer2_${i+1}" class="quiz-result">`
-                +`<p id="true1_${i+1}"><span id="false1_${i+1}" class="false-box">不正解!</span>正解は${answerbox[i]}です!</p>`
+                +`<p id="true2_${i+1}"><span id="false1_${i+1}" class="false-box">不正解!</span>正解は${answerBox[i]}です!</p>`
             +'</div>'
-    +'</div>'
-
-    button.addEventListener('click',() => { 
-        true1.style.display="block";
-        trueBox.style.display="block";
-        answer.style.display="block";
-        button.style.background ="blue";
-        button.style.color = "white";
-    });
-
-    
-    button1.addEventListener("click",() => { 
-        true1.style.display="block";
-        false1.style.display="block";
-        falseMistake.style.display="block";
-        button1.style.background ="red";
-        button1.style.color = "white";
-    });
-    
-    button2.addEventListener("click",() => { 
-        true1.style.display="block";
-        false1.style.display="block";
-        falseMistake.style.display="block";
-        button2.style.background ="red";
-        button2.style.color = "white";
-    });
-}
+    +'</div>';
 
 document.getElementById('quizContainer').insertAdjacentHTML('beforeend',main);
 
+    let falseAnswer = document.getElementById(`textButton1_${i+1}`);
+    let answerMistake = document.getElementById(`textButton2_${i+1}`);
+    let correctAnswer = document.getElementById(`textButton3_${i+1}`);
+
+    let falseChoices = document.getElementById(`false1_${i+1}`);
+    let trueChoices  = document.getElementById(`true1_${i+1}`);
+    let trueSuggest = document.getElementById(`true2_${i+1}`);
+    let trueBox = document.getElementById(`correctBox_${i+1}`);
+    let answerContainer = document.getElementById(`answer1_${i+1}`);
+    let falseMistake = document.getElementById(`answer2_${i+1}`);
+
+
+    correctAnswer.addEventListener('click',() => { 
+        trueChoices.style.display="block";
+        trueBox.style.display="block";
+        answerContainer.style.display="block";
+        correctAnswer.style.background ="blue";
+        correctAnswer.style.color = "white";
+    });
+
+
+
+    
+    falseAnswer.addEventListener("click",() => { 
+        trueSuggest.style.display="block";
+        falseChoices.style.display="block";
+        falseMistake.style.display="block";
+        falseAnswer.style.background ="red";
+        falseAnswer.style.color = "white";
+    });
+    
+    answerMistake.addEventListener("click",() => { 
+        trueSuggest.style.display="block";
+        falseChoices.style.display="block";
+        falseMistake.style.display="block";
+        answerMistake.style.background ="red";
+        answerMistake.style.color = "white";
+    });
+
+    // function shuffle(arr) {
+    //     for (let i = arr.length - 1; i > 0; i--) {
+    //       const j = Math.floor(Math.random() * (i + 1));
+    //       [arr[j], arr[i]] = [arr[i], arr[j]];
+    //     }
+    //     return arr;
+    //   }
+
+    // const shuffledChoices = shuffle(quizSet[currentNum].c);
+
+    //   shuffledChoices.forEach(choice => { // 新たに用意した shuffledChoices を使う
+    //     const li = document.createElement('li');
+    //     li.textContent = choice;
+    //     choices.appendChild(li);
+    //   });
+}
