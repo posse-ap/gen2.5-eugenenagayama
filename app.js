@@ -19,18 +19,18 @@ const answerBox = [
 ]
 
 //シャッフル関数
-function shuffle([...array]) {
-    for (let h = array.length - 1; h >= 0; h--) {
-      const j = Math.floor(Math.random() * (h + 1));
-      [array[h], array[j]] = [array[j], array[h]];
+const shuffle = ([...array]) => {
+    for (let i = array.length - 1; i >= 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
-}
-chooseBox.map(shuffle);
+  }
 
-// console.log(chooseBox[2])
 
 for (let i = 0; i < chooseBox.length; i++) {
+
+    const shuffleBoxes = shuffle([...chooseBox[i]]); //シャッフルした選択肢を要素とする新たな配列
 
     let main = "";
 
@@ -42,65 +42,114 @@ for (let i = 0; i < chooseBox.length; i++) {
             +`<div class="quiz-image-container">
                 <img class="quiz-image" src=images1/${i+1}.png  alt="写真">
             </div>`
-            +'<ul id="selection${i+1}">'
-                +`<li id ="textButton1_${i+1}" >${chooseBox[i][1]}</li>`
-                +`<li id ="textButton2_${i+1}" >${chooseBox[i][2]}</li>`
-                +`<li id ="textButton3_${i+1}">${chooseBox[i][0]}</li>`
+            +`<ul class="choose-selection" id="selection${i+1}">`
             +'</ul>'
-
-            +`<div id="answer1_${i+1}" class="quiz-result">`
-                +`<p id="true1_${i+1}"><span id="correctBox_${i+1}" class="true-box1">正解!</span>正解は${answerBox[i]}です!</p>`
-            +'</div>'
-            +`<div id="answer2_${i+1}" class="quiz-result">`
-                +`<p id="true2_${i+1}"><span id="false1_${i+1}" class="false-box">不正解!</span>正解は${answerBox[i]}です!</p>`
-            +'</div>'
+            + `<div class="result-box" id="result-box${i+1}">`
+            + `<p class="answer" id="result${i+1}"></p>`
+            + `<p class="answer-introduction" id="introduction${i+1}"></p>`
+            + '</div>'
     +'</div>';
 
 document.getElementById('quizContainer').insertAdjacentHTML('beforeend',main);
 
 
-    let falseAnswer = document.getElementById(`textButton1_${i+1}`);
-    let answerMistake = document.getElementById(`textButton2_${i+1}`);
-    let correctAnswer = document.getElementById(`textButton3_${i+1}`);
+//ulに子要素であるliを追加して中身をシャッフルした選択肢にする&各選択肢に適切なclassとidをつける
+shuffleBoxes.forEach(shuffleChoice => {
+    const selection = document.getElementById(`selection${i+1}`);
+    const li = document.createElement('li');
+    li.className = 'choice';
+    li.textContent = shuffleChoice;
+    switch(shuffleChoice){
+        case `${chooseBox[i][0]}`:
+            li.id = `textButton1_${i+1}`;
+            break;
+        case `${chooseBox[i][1]}`:
+            li.id = `textButton2_${i+1}-1`;
+            break;
+        default:
+            li.id = `textButton3_${i+1}-2`;
+    }
+    selection.appendChild(li);
+})
 
-    let falseChoices = document.getElementById(`false1_${i+1}`);
-    let trueChoices  = document.getElementById(`true1_${i+1}`);
-    let trueSuggest = document.getElementById(`true2_${i+1}`);
-    let trueBox = document.getElementById(`correctBox_${i+1}`);
-    let answerContainer = document.getElementById(`answer1_${i+1}`);
-    let falseMistake = document.getElementById(`answer2_${i+1}`);
+
+    const trueAnswer = document.getElementById(`textButton1_${i+1}`);
+    const answerMistake = document.getElementById(`textButton2_${i+1}-1`);
+    const correctAnswer = document.getElementById(`textButton3_${i+1}-2`);
+    const resultbox = document.getElementById(`result-box${i+1}`); //正解の際に表示されるボックス
+    const result = document.getElementById(`result${i+1}`); //「正解!」を表示する部分
+    const introduction = document.getElementById(`introduction${i+1}`); //正解の場合に表示される説明文
 
 
-    correctAnswer.addEventListener('click',() => { 
-        trueChoices.style.display="block";
-        trueBox.style.display="block";
-        answerContainer.style.display="block";
-        correctAnswer.style.background ="blue";
-        correctAnswer.style.color = "white";
-        falseAnswer.classList.add('notclick');
+//鹿骨だけは正解表示が異なるため条件分岐する
+if (i == 8){
+    trueAnswer.addEventListener('click',() => {
+        trueAnswer.classList.add('succeed'); //正解の選択肢の背景を青、文字を白にする
+        resultbox.style.display = 'block'; //正解表示
+        result.textContent = '正解！';
+        introduction.textContent = '江戸川区にあります。';
+        introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
         answerMistake.classList.add('notclick');
+        correctAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
     });
 
+    answerMistake.addEventListener('click',() => {
+        answerMistake.classList.add('failed'); //背景が赤、文字が白に変化
+        resultbox.style.display = 'block'; //正解表示
+        result.textContent = '不正解！';
+        result.classList.add('incorrect-answer'); //不正解の時はアンダーラインが赤になるように上書き
+        introduction.textContent = '江戸川区にあります。';
+        introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
+        trueAnswer.classList.add('succeed'); //正解の選択肢の背景が青、文字が白
+        correctAnswer.classList.add('notclick'); 
+        trueAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
+    });
 
+    correctAnswer.addEventListener('click',() => {
+        correctAnswer.classList.add('failed'); //背景が赤、文字が白に変化
+        resultbox.style.display = 'block'; //正解表示
+        result.textContent = '不正解！';
+        result.classList.add('incorrect-answer'); //不正解の時はアンダーラインが赤になるように上書き
+        introduction.textContent = '江戸川区にあります。';
+        introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
+        trueAnswer.classList.add('succeed'); //正解の選択肢の背景が青、文字が白
+        answerMistake.classList.add('notclick'); 
+        trueAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
+    });
 
-    
-    falseAnswer.addEventListener("click",() => { 
-        trueSuggest.style.display="block";
-        falseChoices.style.display="block";
-        falseMistake.style.display="block";
-        falseAnswer.style.background ="red";
-        falseAnswer.style.color = "white";
-        correctAnswer.classList.add('notclick');
+}else{
+    trueAnswer.addEventListener('click',() => {
+        trueAnswer.classList.add('succeed'); //正解の選択肢の背景を青、文字を白にする
+        resultbox.style.display = 'block'; //正解表示
+        result.textContent = '正解！';
+        introduction.textContent = `正解は「${answerBox[i]}」です！`;
+        introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
         answerMistake.classList.add('notclick');
+        correctAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
     });
-    
-    answerMistake.addEventListener("click",() => { 
-        trueSuggest.style.display="block";
-        falseChoices.style.display="block";
-        falseMistake.style.display="block";
-        answerMistake.style.background ="red";
-        answerMistake.style.color = "white";
-        falseAnswer.classList.add('notclick');
-        correctAnswer.classList.add('notclick');
+
+    answerMistake.addEventListener('click',() => {
+        answerMistake.classList.add('failed'); //背景が赤、文字が白に変化
+        resultbox.style.display = 'block'; //正解表示
+        result.textContent = '不正解！';
+        result.classList.add('incorrect-answer'); //不正解の時はアンダーラインが赤になるように上書き
+        introduction.textContent = `正解は「${answerBox[i]}」です！`;
+        introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
+        trueAnswer.classList.add('succeed'); //正解の選択肢の背景が青、文字が白
+        correctAnswer.classList.add('notclick'); 
+        trueAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
     });
+
+    correctAnswer.addEventListener('click',() => {
+        correctAnswer.classList.add('failed'); //背景が赤、文字が白に変化
+        resultbox.style.display = 'block'; //正解表示
+        result.textContent = '不正解！';
+        result.classList.add('incorrect-answer'); //不正解の時はアンダーラインが赤になるように上書き
+        introduction.textContent = `正解は「${answerBox[i]}」です！`;
+        introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
+        trueAnswer.classList.add('succeed'); //正解の選択肢の背景が青、文字が白
+        answerMistake.classList.add('notclick'); 
+        trueAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
+    });
+};
 }
