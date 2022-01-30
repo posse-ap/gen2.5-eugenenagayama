@@ -2,12 +2,14 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> <!--文字化けを防ぐ -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizy</title>
-    <link rel="stylesheet" href="./normalize.css">
+    <link rel="stylesheet" href="./normalize.css"> 
+    <!-- どのブラウザーでアクセスしても、表示が変わらないように、各々のブラウザーに適用されているデフォルトのスタイルを平均化するために読み込ませるCSS -->
     <link rel="stylesheet" href="./style.css">
+    <!-- cssと連動 -->
 </head>
 
 <body>
@@ -18,7 +20,8 @@
         <h1 class="quiz-title box-container">ガチで東京の人しか解けない! #東京の難読地名クイズ</h1>
         <div class="boxContainer" id='quizContainer'></div>
     </div>
-    <script src="app.js"></script>
+    <script src="app.js"></script> 
+    <!-- jsと連動 -->
 </body>
 
 </html>

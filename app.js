@@ -20,9 +20,9 @@ const answerBox = [
 
 //シャッフル関数
 const shuffle = ([...array]) => {
-    for (let i = array.length - 1; i >= 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+    for (let i = array.length - 1; i >= 0; i--) { // i = ランダムに選ぶ終点のインデックス
+      const j = Math.floor(Math.random() * (i + 1)); // j = 範囲内から選ぶランダム変数
+      [array[i], array[j]] = [array[j], array[i]]; // 分割代入 i と j を入れ替える
     }
     return array;
   }
@@ -74,8 +74,8 @@ shuffleBoxes.forEach(shuffleChoice => {
 
 
     const trueAnswer = document.getElementById(`textButton1_${i+1}`);
-    const answerMistake = document.getElementById(`textButton2_${i+1}-1`);
-    const correctAnswer = document.getElementById(`textButton3_${i+1}-2`);
+    const firstMistake = document.getElementById(`textButton2_${i+1}-1`);
+    const secondMistake = document.getElementById(`textButton3_${i+1}-2`);
     const resultbox = document.getElementById(`result-box${i+1}`); //正解の際に表示されるボックス
     const result = document.getElementById(`result${i+1}`); //「正解!」を表示する部分
     const introduction = document.getElementById(`introduction${i+1}`); //正解の場合に表示される説明文
@@ -89,34 +89,35 @@ if (i == 8){
         result.textContent = '正解！';
         introduction.textContent = '江戸川区にあります。';
         introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
-        answerMistake.classList.add('notclick');
-        correctAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
+        firstMistake.classList.add('notclick');
+        secondMistake.classList.add('notclick'); //他の選択肢のクリック無効化
     });
 
-    answerMistake.addEventListener('click',() => {
-        answerMistake.classList.add('failed'); //背景が赤、文字が白に変化
+    firstMistake.addEventListener('click',() => {
+        firstMistake.classList.add('failed'); //背景が赤、文字が白に変化
         resultbox.style.display = 'block'; //正解表示
         result.textContent = '不正解！';
         result.classList.add('incorrect-answer'); //不正解の時はアンダーラインが赤になるように上書き
         introduction.textContent = '江戸川区にあります。';
         introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
         trueAnswer.classList.add('succeed'); //正解の選択肢の背景が青、文字が白
-        correctAnswer.classList.add('notclick'); 
+        secondMistake.classList.add('notclick'); 
         trueAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
     });
 
-    correctAnswer.addEventListener('click',() => {
-        correctAnswer.classList.add('failed'); //背景が赤、文字が白に変化
+    secondMistake.addEventListener('click',() => {
+        secondMistake.classList.add('failed'); //背景が赤、文字が白に変化
         resultbox.style.display = 'block'; //正解表示
         result.textContent = '不正解！';
         result.classList.add('incorrect-answer'); //不正解の時はアンダーラインが赤になるように上書き
         introduction.textContent = '江戸川区にあります。';
         introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
         trueAnswer.classList.add('succeed'); //正解の選択肢の背景が青、文字が白
-        answerMistake.classList.add('notclick'); 
+        firstMistake.classList.add('notclick'); 
         trueAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
     });
 
+//正解の時の結果
 }else{
     trueAnswer.addEventListener('click',() => {
         trueAnswer.classList.add('succeed'); //正解の選択肢の背景を青、文字を白にする
@@ -124,31 +125,33 @@ if (i == 8){
         result.textContent = '正解！';
         introduction.textContent = `正解は「${answerBox[i]}」です！`;
         introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
-        answerMistake.classList.add('notclick');
-        correctAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
+        firstMistake.classList.add('notclick');
+        secondMistake.classList.add('notclick'); //他の選択肢のクリック無効化
     });
 
-    answerMistake.addEventListener('click',() => {
-        answerMistake.classList.add('failed'); //背景が赤、文字が白に変化
+//不正解の時の結果
+    firstMistake.addEventListener('click',() => {
+        firstMistake.classList.add('failed'); //背景が赤、文字が白に変化
         resultbox.style.display = 'block'; //正解表示
         result.textContent = '不正解！';
         result.classList.add('incorrect-answer'); //不正解の時はアンダーラインが赤になるように上書き
         introduction.textContent = `正解は「${answerBox[i]}」です！`;
         introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
         trueAnswer.classList.add('succeed'); //正解の選択肢の背景が青、文字が白
-        correctAnswer.classList.add('notclick'); 
+        secondMistake.classList.add('notclick'); 
         trueAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
     });
 
-    correctAnswer.addEventListener('click',() => {
-        correctAnswer.classList.add('failed'); //背景が赤、文字が白に変化
+//不正解の時の結果
+    secondMistake.addEventListener('click',() => {
+        secondMistake.classList.add('failed'); //背景が赤、文字が白に変化
         resultbox.style.display = 'block'; //正解表示
         result.textContent = '不正解！';
         result.classList.add('incorrect-answer'); //不正解の時はアンダーラインが赤になるように上書き
         introduction.textContent = `正解は「${answerBox[i]}」です！`;
         introduction.scrollIntoView({behavior: 'smooth', block: 'center'}); //正解表示がブラウザの真ん中に来るように自動スクロール
         trueAnswer.classList.add('succeed'); //正解の選択肢の背景が青、文字が白
-        answerMistake.classList.add('notclick'); 
+        firstMistake.classList.add('notclick'); 
         trueAnswer.classList.add('notclick'); //他の選択肢のクリック無効化
     });
 };
